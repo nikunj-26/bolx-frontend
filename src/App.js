@@ -1,13 +1,33 @@
-import './App.css';
-import Navbar from "./Component/Navbar";
-import MediaCard from "./Component/Card";
+import "./App.css";
+import { Router, Switch, Route } from "react-router-dom";
+
+import LoginForm from "./Component/LoginForm";
+import PrivateRoute from "./Component/PrivateRoute";
+import PublicRoute from "./Component/PublicRoute";
+
+import RegistrationForm from "./Component/RegistrationForm";
+import Secret from "./Component/Secret";
+import Home from "./Component/Home";
+import { SnackbarProvider } from "material-ui-snackbar-provider";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { createBrowserHistory } from "history";
 
 function App() {
+  const history = createBrowserHistory();
   return (
-    <div className="App">
-      <Navbar />
-      <MediaCard/>
-    </div>
+    <Provider store={store}>
+      <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000 }}>
+        <Router history={history}>
+          <Switch>
+            <PublicRoute path="/login" exact component={LoginForm} />
+            <PublicRoute path="/register" exact component={RegistrationForm} />
+            <PrivateRoute path="/secret" exact component={Secret} />
+            <Route path="/" exact component={Home} />
+          </Switch>
+        </Router>
+      </SnackbarProvider>
+    </Provider>
   );
 }
 
