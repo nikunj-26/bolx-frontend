@@ -1,17 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 300,
   },
   media: {
     height: 140,
@@ -23,9 +23,15 @@ export default function MediaCard() {
 
   const clickme = (event) => {
     console.log(event);
-  }
+    // alert("Card Clicked!");
+  };
   return (
-    <Card className={classes.root} onClick={(event)=>{clickme(event)}}>
+    <Card
+      className={classes.root}
+      onClick={(event) => {
+        clickme(event);
+      }}
+    >
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -35,14 +41,20 @@ export default function MediaCard() {
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Car
-            <IconButton aria-label="add to favorites" style={{paddingLeft:"230px"}}>
-          <FavoriteIcon/>
-        </IconButton>
+            <IconButton
+              aria-label="add to favorites"
+              style={{ float: "right" }}
+              onClick={() => {
+                alert("Button Clicked");
+              }}
+            >
+              <FavoriteIcon />
+            </IconButton>
           </Typography>
-          
+
           <Typography variant="body2" color="textSecondary" component="p">
-            Car are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            Car are a widespread group of squamate reptiles, with over 6,000
+            species, ranging across all continents except Antarctica
           </Typography>
         </CardContent>
       </CardActionArea>
