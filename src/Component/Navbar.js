@@ -21,7 +21,7 @@ function Navbar(props) {
         <a href="/register">Register</a>
         <button
           onClick={() => {
-            history.push("/register");
+            history.push("/sell");
           }}
         >
           SELL
@@ -42,7 +42,7 @@ function Navbar(props) {
         </a>
         <button
           onClick={() => {
-            history.push("/register");
+            history.push("/sell");
           }}
         >
           SELL
