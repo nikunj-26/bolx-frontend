@@ -41,7 +41,7 @@ export default function MediaCard() {
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Car
-            <IconButton
+            {/* <IconButton
               aria-label="add to favorites"
               style={{ float: "right" }}
               onClick={() => {
@@ -49,7 +49,7 @@ export default function MediaCard() {
               }}
             >
               <FavoriteIcon />
-            </IconButton>
+            </IconButton> */}
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
