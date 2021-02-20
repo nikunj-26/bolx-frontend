@@ -6,6 +6,7 @@ import "./dropzone.css";
 import { Button, TextField } from "@material-ui/core";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import Thumb from "./Thumb";
 
@@ -42,11 +43,24 @@ function FUpload(props) {
             }
 
             // you would submit with fetch for example
-            const res = await fetch(
+            /*const res = await fetch(
               "http://localhost:5000/uploadmultiplefile",
               { method: "POST", body: formData }
-            );
-            console.log(res);
+            );*/
+            axios({
+              method: 'post',
+              url: 'http://localhost:5000/uploadmultiplefile',
+              data: formData,
+              headers: {'Content-Type': 'multipart/form-data' }
+              })
+              .then(function (response) {
+                  //handle success
+                  console.log(response);
+              })
+              .catch(function (response) {
+                  //handle error
+                  console.log(response);
+              });
             // if (res.data.status === "success") {
             //   console.log("Succesfully Created");
             // } else {
