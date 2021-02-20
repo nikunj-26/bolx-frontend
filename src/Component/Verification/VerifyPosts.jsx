@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from "react";
+import Navbar from "../Navbar";
+import VerificationCard from "./VerificationCard";
 import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
-import Navbar from "./Navbar";
-import MediaCard from "./Card";
 
-/*1: fetch data from backend
-2: map the data in Card
-3: use useffect */
-
-export default function Home() {
+export default function VerifyPosts() {
   const [data, setData] = useState([]);
-
-  const [search, setSearch] = useState("");
-
-  const callback = (childData) => {
-    setData(childData);
-    console.log("Searched data :", search);
-  };
-
   useEffect(() => {
     axios
-      .get("http://localhost:5002/homepage")
+      .get("http://localhost:5002/adminhomepage")
       .then((response) => {
         setData(response["data"].reverse());
       })
@@ -28,10 +16,10 @@ export default function Home() {
         console.log(err);
       });
   }, []);
-
   return (
     <div>
-      <Navbar parentCallback={callback} />
+      <Navbar />
+      <h3>Verify Posts</h3>
       <div
         style={{
           display: "flex",
@@ -43,9 +31,9 @@ export default function Home() {
           <Row>
             {data.map((dataItem, index) => {
               return (
-                <MediaCard
+                <VerificationCard
                   key={index}
-                  id={index}
+                  id={dataItem._id}
                   title={dataItem.title}
                   image={dataItem.image[0]}
                   description={dataItem.description}

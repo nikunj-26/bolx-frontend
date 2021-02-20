@@ -8,11 +8,8 @@ import { logoutUser } from "../redux/user/userActions";
 import { useSnackbar } from "material-ui-snackbar-provider";
 import axios from "axios";
 
-
 function Navbar(props) {
-
   const snackbar = useSnackbar();
-  const [searchData, setSearchData] = useState([]);
 
   const onSearch = (value) => {
     console.log("The value is :", value);
@@ -21,7 +18,7 @@ function Navbar(props) {
     };
     axios({
       method: "post",
-      url: "http://localhost:5001/getProduct",
+      url: "http://localhost:5002/getProduct",
       data: values,
       headers: { "Content-Type": "application/json" },
     })
@@ -66,26 +63,49 @@ function Navbar(props) {
       </div>
     );
   } else {
-    navbar = (
-      <div className="links">
-        <a href="/">Posts</a>
-        <a
-          onClick={() => {
-            dispatch(logoutUser());
-          }}
-          href="/login"
-        >
-          Logout
-        </a>
-        <button
-          onClick={() => {
-            history.push("/sell");
-          }}
-        >
-          SELL
-        </button>
-      </div>
-    );
+    if (props.role === "user") {
+      navbar = (
+        <div className="links">
+          <a href="/">Posts</a>
+          <a
+            onClick={() => {
+              dispatch(logoutUser());
+            }}
+            href="/login"
+          >
+            Logout
+          </a>
+          <button
+            onClick={() => {
+              history.push("/sell");
+            }}
+          >
+            SELL
+          </button>
+        </div>
+      );
+    } else if (props.role === "admin") {
+      navbar = (
+        <div className="links">
+          <a href="/verify">Verification</a>
+          <a
+            onClick={() => {
+              dispatch(logoutUser());
+            }}
+            href="/login"
+          >
+            Logout
+          </a>
+          {/* <button
+            onClick={() => {
+              history.push("/sell");
+            }}
+          >
+            SELL
+          </button> */}
+        </div>
+      );
+    }
   }
   return (
     <div className="Navbar">
@@ -120,6 +140,7 @@ function Navbar(props) {
 
 const mapStatetoProps = (state) => ({
   isAuthenticated: state.isAuthenticated,
+  role: state.user.role,
 });
 
 export default connect(mapStatetoProps)(Navbar);

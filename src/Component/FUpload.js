@@ -7,10 +7,15 @@ import { Button, TextField } from "@material-ui/core";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
 import axios from "axios";
+import { useSnackbar } from "material-ui-snackbar-provider";
+import { useHistory } from "react-router-dom";
 
 import Thumb from "./Thumb";
 
 function FUpload(props) {
+  const snackbar = useSnackbar();
+  const history = useHistory();
+
   return (
     <div>
       <Navbar />
@@ -48,18 +53,30 @@ function FUpload(props) {
               { method: "POST", body: formData }
             );*/
             axios({
-              method: 'post',
-              url: 'http://localhost:5000/uploadmultiplefile',
+              method: "post",
+              url: "http://localhost:5000/uploadmultiplefile",
               data: formData,
-              headers: {'Content-Type': 'multipart/form-data' }
-              })
+              headers: { "Content-Type": "multipart/form-data" },
+            })
               .then(function (response) {
-                  //handle success
-                  console.log(response);
+                //handle success
+                if (response.data.status === "Success") {
+                  snackbar.showMessage(response.data.message, "Home", () => {
+                    history.push("/");
+                  });
+                } else {
+                  snackbar.showMessage(
+                    response.data.message,
+                    "Try Again",
+                    () => {
+                      window.location.reload();
+                    }
+                  );
+                }
               })
               .catch(function (response) {
-                  //handle error
-                  console.log(response);
+                //handle error
+                console.log(response);
               });
             // if (res.data.status === "success") {
             //   console.log("Succesfully Created");
@@ -68,11 +85,11 @@ function FUpload(props) {
             // }
 
             // Do whatever on the sever
-            alert("Form submitted!");
-            console.log(formData.getAll("attachments"));
-            console.log(formData.get("description"));
-            console.log(formData.has("attachments[0]"));
-            console.log(values);
+            // alert("Form submitted!");
+            // console.log(formData.getAll("attachments"));
+            // console.log(formData.get("description"));
+            // console.log(formData.has("attachments[0]"));
+            // console.log(values);
           }}
           validationSchema={yup.object().shape({
             title: yup.string().required("Title is required"),

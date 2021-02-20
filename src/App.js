@@ -4,7 +4,9 @@ import { Router, Switch, Route } from "react-router-dom";
 import LoginForm from "./Component/LoginForm";
 import PrivateRoute from "./Component/PrivateRoute";
 import PublicRoute from "./Component/PublicRoute";
+import AdminRoute from "./Component/AdminRoute";
 
+import VerifyPosts from "./Component/Verification/VerifyPosts";
 import FUpload from "./Component/FUpload";
 import RegistrationForm from "./Component/RegistrationForm";
 import Secret from "./Component/Secret";
@@ -24,7 +26,8 @@ function App() {
             <PublicRoute path="/login" exact component={LoginForm} />
             <PublicRoute path="/register" exact component={RegistrationForm} />
             <PrivateRoute path="/secret" exact component={Secret} />
-            <PrivateRoute path="/sell" exact component={FUpload} />
+            <AdminRoute path="/verify" exact component={VerifyPosts} />
+            <Route path="/sell" exact component={FUpload} />
             <Route path="/" exact component={Home} />
           </Switch>
         </Router>

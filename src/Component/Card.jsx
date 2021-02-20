@@ -13,8 +13,8 @@ import { Col } from "reactstrap";
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
-    height: 275,
+    maxWidth: 250,
+    maxHeight: 275,
     marginTop: 20,
     marginBottom: 20,
   },
@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 });
 
 export default function MediaCard(props) {
-
   const classes = useStyles();
 
   const clickme = (event) => {
@@ -42,26 +41,28 @@ export default function MediaCard(props) {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={"http://localhost:5000/images/"+props.image}
+            image={"http://localhost:5000/images/" + props.image}
             title={"Contemplative Reptile"}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {props.title}
-              { /*<IconButton
+              {
+                /*<IconButton
                   aria-label="add to favorites"
                   style={{ float: "right" }}
                   onClick={() => {
                     alert("Button Clicked");
                     }}
                 >*/
-                <FavoriteIcon aria-label="add to favorites"
+                <FavoriteIcon
+                  aria-label="add to favorites"
                   style={{ float: "right" }}
                   onClick={() => {
                     alert("Button Clicked");
-                  }} 
+                  }}
                 />
-                /*</IconButton>*/ 
+                /*</IconButton>*/
               }
             </Typography>
 
@@ -71,6 +72,6 @@ export default function MediaCard(props) {
           </CardContent>
         </CardActionArea>
       </Card>
-    </Col>    
+    </Col>
   );
 }
