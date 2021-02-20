@@ -1,16 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
 import SearchBar from "material-ui-search-bar";
 import olx from "../Assets/301322.svg";
 import { useHistory } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/user/userActions";
+import { useSnackbar } from "material-ui-snackbar-provider";
+import axios from "axios";
 
-const onSearch = (value) => {
-  console.log("The value is :", value);
-};
 
 function Navbar(props) {
+
+  const snackbar = useSnackbar();
+  const [searchData, setSearchData] = useState([]);
+
+  const onSearch = (value) => {
+    console.log("The value is :", value);
+    const values = {
+      product_title: value,
+    };
+    axios({
+      method: "post",
+      url: "http://localhost:5001/getProduct",
+      data: values,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        //handle success
+        console.log(res.data);
+        props.parentCallback(res.data);
+        /*if (res.data.status === "Success") {
+          setSearchData(res.data.snippets);
+        } else {
+          snackbar.showMessage(
+            "No items found",
+            "Try something different",
+            () => {
+              // history.push("/home");
+              window.location.reload();
+            }
+          );
+        }*/
+      })
+      .catch(function (err) {
+        //handle error
+        console.log(err);
+      });
+  };
+
   const dispatch = useDispatch();
   const history = useHistory();
   let navbar;
