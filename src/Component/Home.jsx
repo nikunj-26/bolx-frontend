@@ -45,7 +45,7 @@ export default function Home() {
               return (
                 <MediaCard
                   key={index}
-                  id={index}
+                  id={dataItem._id}
                   title={dataItem.title}
                   image={dataItem.image[0]}
                   description={dataItem.description}

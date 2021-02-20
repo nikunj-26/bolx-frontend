@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -25,17 +26,22 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   const classes = useStyles();
+  const history = useHistory();
 
-  const clickme = (event) => {
-    console.log(event);
+  const clickme = () => {
+    history.push({
+      pathname: "/sub",
+      search: props.id,
+    });
+    //console.log(event);
     // alert("Card Clicked!");
   };
   return (
     <Col xs="4">
       <Card
         className={classes.root}
-        onClick={(event) => {
-          clickme(event);
+        onClick={() => {
+          clickme();
         }}
       >
         <CardActionArea>
