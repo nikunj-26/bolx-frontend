@@ -18,7 +18,7 @@ function Navbar(props) {
     };
     axios({
       method: "post",
-      url: "http://localhost:5002/getProduct",
+      url: "http://localhost:5002/searchProduct",
       data: values,
       headers: { "Content-Type": "application/json" },
     })
@@ -38,6 +38,28 @@ function Navbar(props) {
             }
           );
         }*/
+      })
+      .catch(function (err) {
+        //handle error
+        console.log(err);
+      });
+  };
+
+  const userPosts = () => {
+    const values = {
+      sellerEmail: props.sellerEmail,
+    };
+    console.log(values);
+    axios({
+      method: "post",
+      url: "http://localhost:5002/getUserPosts",
+      data: values,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        //handle success
+        console.log(res.data);
+        props.parentCallback(res.data);
       })
       .catch(function (err) {
         //handle error
@@ -66,7 +88,22 @@ function Navbar(props) {
     if (props.role === "user") {
       navbar = (
         <div className="links">
-          <a href="/">Posts</a>
+          {/* <a
+            onClick={() => {
+              userPosts();
+            }}
+            href="/"
+          >
+            Posts
+          </a> */}
+          <button
+            className="noStyleBtn"
+            onClick={() => {
+              userPosts();
+            }}
+          >
+            Posts
+          </button>
           <a
             onClick={() => {
               dispatch(logoutUser());
@@ -141,6 +178,7 @@ function Navbar(props) {
 const mapStatetoProps = (state) => ({
   isAuthenticated: state.isAuthenticated,
   role: state.user.role,
+  sellerEmail: state.user.email,
 });
 
 export default connect(mapStatetoProps)(Navbar);
