@@ -8,6 +8,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useSnackbar } from "material-ui-snackbar-provider";
 
 const useStyles = makeStyles({
   root: {
@@ -24,13 +26,15 @@ const useStyles = makeStyles({
 });
 
 export default function VerificationCard(props) {
+  const history = useHistory();
+  const snackbar = useSnackbar();
   const classes = useStyles();
 
   function handleClick() {
     console.log(props.title);
     const product = {
       title: props.title,
-      id: props.id,
+      product_id: props.id,
     };
     console.log(product);
 
@@ -43,6 +47,11 @@ export default function VerificationCard(props) {
       .then(function (res) {
         //handle success
         console.log(res.data);
+        if (res.data.status === "success") {
+          snackbar.showMessage("Verified Succesfully", "Reload", () => {
+            history.push("/verify");
+          });
+        }
         // if (res.data.status === "success") {
         //   const user = res.data;
         //   dispatch(fetchUserSuccess(user));
@@ -88,7 +97,7 @@ export default function VerificationCard(props) {
         <Button size="small" color="primary" onClick={handleClick}>
           Approve
         </Button>
-        <Button
+        {/* <Button
           size="small"
           color="primary"
           onClick={() => {
@@ -96,7 +105,7 @@ export default function VerificationCard(props) {
           }}
         >
           Deny
-        </Button>
+        </Button> */}
       </CardActions>
     </Card>
   );

@@ -27,7 +27,7 @@ function App() {
             <PublicRoute path="/register" exact component={RegistrationForm} />
             <PrivateRoute path="/secret" exact component={Secret} />
             <AdminRoute path="/verify" exact component={VerifyPosts} />
-            <Route path="/sell" exact component={FUpload} />
+            <PrivateRoute path="/sell" exact component={FUpload} />
             <Route path="/" exact component={Home} />
           </Switch>
         </Router>
