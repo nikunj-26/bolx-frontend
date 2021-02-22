@@ -5,6 +5,7 @@ import LoginForm from "./Component/LoginForm";
 import PrivateRoute from "./Component/PrivateRoute";
 import PublicRoute from "./Component/PublicRoute";
 import AdminRoute from "./Component/AdminRoute";
+import FullDetails from "./Component/FullDetails";
 
 import VerifyPosts from "./Component/Verification/VerifyPosts";
 import FUpload from "./Component/FUpload";
@@ -28,6 +29,7 @@ function App() {
             <PrivateRoute path="/secret" exact component={Secret} />
             <AdminRoute path="/verify" exact component={VerifyPosts} />
             <PrivateRoute path="/sell" exact component={FUpload} />
+            <Route path="/sub" exact component={FullDetails} />
             <Route path="/" exact component={Home} />
           </Switch>
         </Router>

@@ -3,12 +3,13 @@ import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 import Navbar from "./Navbar";
 import MediaCard from "./Card";
+import { connect } from "react-redux";
 
 /*1: fetch data from backend
 2: map the data in Card
 3: use useffect */
 
-export default function Home() {
+function Home(props) {
   const [data, setData] = useState([]);
 
   const [search, setSearch] = useState("");
@@ -42,12 +43,19 @@ export default function Home() {
         <Container>
           <Row>
             {data.map((dataItem, index) => {
+              console.log(props.email);
               return (
                 <MediaCard
                   key={index}
-                  id={index}
+                  id={dataItem._id}
                   title={dataItem.title}
+                  price={dataItem.price}
+                  uEmail={props.email}
+                  email={dataItem.sellerEmail}
+                  date={dataItem.date}
                   image={dataItem.image[0]}
+                  city={dataItem.city}
+                  state={dataItem.state}
                   description={dataItem.description}
                 />
               );
@@ -58,3 +66,9 @@ export default function Home() {
     </div>
   );
 }
+
+const mapStatetoProps = (state) => ({
+  email: state.user.email,
+});
+
+export default connect(mapStatetoProps)(Home);
